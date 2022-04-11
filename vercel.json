@@ -16,12 +16,7 @@
       }
     ]
   }],
-  "builds": [
-    {
-      "src": "./app.js",
-      "use": "@vercel/node"
-    }
-  ],
+  
   "routes": [
     {
       "src": "/(.*)",
