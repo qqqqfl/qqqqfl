@@ -16,10 +16,10 @@
       }
     ]
   }],
-  "rewrites": [
+  "routes": [
     {
-      "source": "/", 
-      "destination": "/api/query-all-users"
+      "src": "/(.*)",
+      "dest": "/"
     }
   ]
 }
