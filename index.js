@@ -1,1 +1,1 @@
-var app = require('./src/app')
+const app = require('./app')
