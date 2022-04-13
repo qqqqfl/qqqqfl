@@ -2,7 +2,7 @@ const db = require('../mysql/index')
 
 // 获取用户所有信息
 exports.getAllUser = (req, res) => {
-  let str = "select * from sp_users"
+  let str = "select * from sp_users where is_delete=0"
   db.query(str, (err, results) => {
     if (err) return res.cc(err)
     return res.send({ status: 0, data: results })
@@ -12,7 +12,29 @@ exports.getAllUser = (req, res) => {
 //获取用户所有的订单
 exports.getAllOrder = (req, res) => {
   // let str = " select * from sp_order o,sp_address ad where o.user_id=? and o.addr_id=ad.ad_id order by create_time desc"
-  let str = "select * from sp_order o,sp_address ad,sp_users u where o.addr_id=ad.ad_id and o.user_id=u.mg_id order by create_time desc"
+  let str = `select o.order_id,
+                    o.user_id,
+                    o.order_number,
+                    o.order_price,
+                    o.pay_status,
+                    o.order_pay,
+                    o.addr_id,
+                    o.create_time,
+                    o.is_delete,
+                    ad.ad_id,
+                    ad.user_id,
+                    ad.ad_name,
+                    ad.ad_phone,
+                    ad.ad_addr,
+                    u.mg_id,
+                    u.mg_name,
+                    u.mg_pwd,
+                    u.mg_phone,
+                    u.mg_money,
+                    u.mg_time,
+                    u.mg_sex,
+                    u.mg_state
+   from sp_order o,sp_address ad,sp_users u where o.addr_id=ad.ad_id and o.user_id=u.mg_id order by create_time desc`
   db.query(str, req.params.id, (err, results) => {
     if (err) return res.cc(err)
     // res.send({status:0,data:results})
@@ -52,7 +74,7 @@ exports.addGoods = (req, res) => {
 }
 
 
-//获取用户所有的订单
+//添加商品分类
 exports.addGoodsType = (req, res) => {
   let str = "select * from sp_category where category_name=?"
   db.query(str,req.body.categoryName,(err, results) => {
