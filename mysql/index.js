@@ -8,7 +8,6 @@ const db = mysql.createPool({
   password: 'admin123',
   database: 'vue_shop_db',
   multipleStatements:true
-  
 })
 
 // 向外导入数据库
